@@ -8,19 +8,20 @@
 import SwiftUI
 
 struct TabBarView: View {
-    @EnvironmentObject var tabManger: TabViewManger
+    //    @EnvironmentObject var tabManger: TabViewManger
+    @Binding var tabView: TabViews
     
     var body: some View {
         HStack(spacing: 40) {
             ForEach(TabViews.allCases, id: \.self) { tab in
                 Button(action: {
                     withAnimation {
-                        tabManger.selectedTab = tab
+                        tabView = tab
                     }
                 }, label: {
                     Image(systemName: tab.getTabLabel())
                         .fontWeight(.bold)
-                        .foregroundStyle(tab == tabManger.selectedTab ? .blue: .gray)
+                        .foregroundStyle(tab == tabView ? .blue: .gray)
                         .scaleEffect(x: 1.2, y: 1.2)
                 })
             }
@@ -32,6 +33,6 @@ struct TabBarView: View {
 }
 
 #Preview {
-    TabBarView()
-        .environmentObject(TabViewManger())
+    TabBarView(tabView: .constant(.History))
+        .environmentObject(NavigationManger())
 }

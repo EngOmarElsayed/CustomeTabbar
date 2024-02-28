@@ -6,7 +6,20 @@
 //
 
 import Foundation
+import SwiftUI
 
 class TabViewManger: ObservableObject {
     @Published var selectedTab: TabViews = .Home
+    @Published var currentTab: TabViews = .Home
+}
+
+extension TabViewManger {
+    func getEdge() -> Edge {
+        switch (selectedTab, currentTab) {
+        case (.Home, .Search):
+            return .trailing
+        default:
+            return .leading
+        }
+    }
 }

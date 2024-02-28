@@ -1,5 +1,5 @@
 //
-//  MainView.swift
+//  ContentView.swift
 //  CustomeTabbar
 //
 //  Created by Eng.Omar Elsayed on 25/02/2024.
@@ -8,20 +8,26 @@
 import SwiftUI
 
 struct MainView: View {
-    @StateObject var tabViewManger = TabViewManger()
+    @State var tabView: TabViews = .Home
     
     var body: some View {
-        ZStack(alignment: .bottom){
-            TabView(selection: $tabViewManger.selectedTab) {
-                ForEach(TabViews.allCases, id: \.self) { tab in
-                    GenericTabView(tab: tab, buttonAction: {})
-                        .tag(tab)
-                        .transition(.move(edge: .trailing))
-                }
+        ZStack(alignment: .bottom) {
+            switch tabView {
+            case .Home:
+                GenericTabView(tab: .Home, buttonAction: {} )
+                    .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
+            case .Search:
+                GenericTabView(tab: .Search, buttonAction: {} )
+                    .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
+            case .History:
+                GenericTabView(tab: .History, buttonAction: {} )
+                    .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
+            case .Profile:
+                GenericTabView(tab: .Profile, buttonAction: {} )
+                    .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .trailing)))
             }
             
-            TabBarView()
-                .environmentObject(tabViewManger)
+            TabBarView(tabView: $tabView)
         }
     }
 }

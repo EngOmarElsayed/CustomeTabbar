@@ -15,9 +15,7 @@ enum TabViews: String {
     case Profile
 }
 
-extension TabViews: CaseIterable {
-    
-}
+extension TabViews: CaseIterable {}
 
 extension TabViews {
     func getColor() -> Color {
@@ -65,6 +63,19 @@ extension TabViews {
             return "clock"
         case .Profile:
             return "person.fill"
+        }
+    }
+    
+    func getIndex() -> Int {
+        switch self {
+        case .Home:
+            return 0
+        case .Search:
+            return 1
+        case .History:
+            return 2
+        case .Profile:
+            return 3
         }
     }
     
